@@ -3,13 +3,7 @@ function mergeSort(array){
         return array
     }
     let initialHalves = split(array)
-    if (initialHalves[0].length > 2) {
-        let leftHolder = mergeSort(initialHalves[0])
-        let rightHolder = mergeSort(initialHalves[1])
-        initialHalves[0] = leftHolder
-        initialHalves[1] = rightHolder
-    }
-    return mergeArray(initialHalves[0],initialHalves[1]) 
+    return mergeArray(mergeSort(initialHalves[0]), mergeSort(initialHalves[1]))
 }
 
 function split(arr) {
@@ -17,7 +11,7 @@ function split(arr) {
             return arr
         }
         let leftHalf = arr.slice(0, Math.ceil(arr.length/2))
-        let rightHalf = arr.slice(Math.ceil(arr.length/2), arr.length)
+        let rightHalf = arr.slice(Math.ceil(arr.length/2))
         return [leftHalf, rightHalf]
 }
 
@@ -26,7 +20,7 @@ function mergeArray (arr1, arr2) {
     let i = 0
     let j = 0
     while (i < arr1.length || j < arr2.length) {
-        if (arr1[i]<arr2[j]){
+        if (arr1[i]<arr2[j] || arr2[j] === undefined){
             returnArr.push(arr1[i])
             i++
         }
